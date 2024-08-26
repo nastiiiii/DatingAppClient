@@ -1,4 +1,4 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import {HttpInterceptorFn} from '@angular/common/http';
 import {inject} from "@angular/core";
 import {NavigationExtras, Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
@@ -10,10 +10,9 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((err) => {
-      if(err) {
+      if (err) {
         switch (err.status) {
-          case 400:
-          {
+          case 400: {
             if (err.error.errors) {
               const modalStateErrors = [];
               for (const key in err.error.errors) {

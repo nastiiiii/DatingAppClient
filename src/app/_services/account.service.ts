@@ -1,16 +1,16 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, inject, signal } from '@angular/core';
-import { User } from '../_models/user';
-import { map } from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {inject, Injectable, signal} from '@angular/core';
+import {User} from '../_models/user';
+import {map} from 'rxjs';
 import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  private http = inject(HttpClient);
-  baseUrl =  environment.apiUrl;
+  baseUrl = environment.apiUrl;
   currentUser = signal<User | null>(null);
+  private http = inject(HttpClient);
 
   login(model: any) {
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
@@ -33,7 +33,7 @@ export class AccountService {
     )
   }
 
-  setCurrentUser(user:User) {
+  setCurrentUser(user: User) {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUser.set(user);
   }

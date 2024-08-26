@@ -48,11 +48,11 @@
     [type]="'password'"
   ></app-text-input>
 
-  @if(validationErrors) {
+  @if (validationErrors) {
     <div class="alert alert-danger text-start">
       <ul>
-        @for(error of validationErrors; track $index) {
-          <li>{{error}}</li>
+        @for (error of validationErrors; track $index) {
+          <li>{{ error }}</li>
         }
       </ul>
     </div>

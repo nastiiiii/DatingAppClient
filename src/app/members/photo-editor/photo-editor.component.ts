@@ -21,13 +21,12 @@ import {MembersService} from "../../_services/members.service";
 })
 export class PhotoEditorComponent implements OnInit {
   member = input.required<Member>();
-  private accountService = inject(AccountService);
-  private memberService = inject(MembersService);
   uploader?: FileUploader;
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
   memberChange = output<Member>();
-
+  private accountService = inject(AccountService);
+  private memberService = inject(MembersService);
 
   ngOnInit(): void {
     this.initializeUploader();
@@ -72,7 +71,7 @@ export class PhotoEditorComponent implements OnInit {
       authToken: 'Bearer ' + this.accountService.currentUser()?.token,
       isHTML5: true,
       allowedFileType: ['image'],
-      removeAfterUpload:true,
+      removeAfterUpload: true,
       autoUpload: false,
       maxFileSize: 10 * 1024 * 1024
     });

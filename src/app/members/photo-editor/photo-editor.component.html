@@ -1,12 +1,14 @@
 <div class="row">
-  @for (photo of member().photos; track photo.id)
-  {
+  @for (photo of member().photos; track photo.id) {
     <div class="col-2" style="margin-left: 50px">
-        <img src="{{photo.url}}" alt="photo of user" class="img-thumbnail, mb-1" style="height: 200px">
-        <div class="text-center">
-          <button class="btn btn-sm me-1" [disabled]="photo.isMain" (click)="setMainPhoto(photo)" [ngClass]="photo.isMain ? 'btn-success active':'btn-outline-success'">Main</button>
-          <button class="btn btn-sm btn-danger" (click)="deletePhoto(photo)" [disabled]="photo.isMain"><i class="fa fa-trash"></i></button>
-        </div>
+      <img src="{{photo.url}}" alt="photo of user" class="img-thumbnail, mb-1" style="height: 200px">
+      <div class="text-center">
+        <button class="btn btn-sm me-1" [disabled]="photo.isMain" (click)="setMainPhoto(photo)"
+                [ngClass]="photo.isMain ? 'btn-success active':'btn-outline-success'">Main
+        </button>
+        <button class="btn btn-sm btn-danger" (click)="deletePhoto(photo)" [disabled]="photo.isMain"><i
+          class="fa fa-trash"></i></button>
+      </div>
     </div>
   }
 </div>
@@ -42,7 +44,7 @@
       <tbody>
       <tr *ngFor="let item of uploader?.queue">
         <td><strong>{{ item?.file?.name }}</strong></td>
-        <td *ngIf="uploader?.options?.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+        <td *ngIf="uploader?.options?.isHTML5" nowrap>{{ item?.file?.size / 1024 / 1024 | number:'.2' }} MB</td>
       </tr>
       </tbody>
     </table>

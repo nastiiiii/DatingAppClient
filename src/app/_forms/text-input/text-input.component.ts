@@ -16,25 +16,27 @@ export class TextInputComponent implements ControlValueAccessor {
   label = input<string>('');
   type = input<string>('text');
 
-  constructor(@Self() public ngControl:NgControl) {
+  constructor(@Self() public ngControl: NgControl) {
     this.ngControl.valueAccessor = this;
   }
 
+  get control(): FormControl {
+    return this.ngControl.control as FormControl;
+  }
 
-    writeValue(obj: any): void {
+  writeValue(obj: any): void {
 
-    }
-    registerOnChange(fn: any): void {
+  }
 
-    }
-    registerOnTouched(fn: any): void {
+  registerOnChange(fn: any): void {
 
-    }
-    setDisabledState?(isDisabled: boolean): void {
-    }
+  }
 
-    get control(): FormControl {
-      return this.ngControl.control as FormControl;
-    }
+  registerOnTouched(fn: any): void {
+
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+  }
 
 }

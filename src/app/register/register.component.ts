@@ -1,13 +1,6 @@
 import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  ValidatorFn,
-  Validators
-} from '@angular/forms';
-import { AccountService } from '../_services/account.service';
+import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidatorFn, Validators} from '@angular/forms';
+import {AccountService} from '../_services/account.service';
 import {JsonPipe, NgIf} from "@angular/common";
 import {TextInputComponent} from "../_forms/text-input/text-input.component";
 import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
@@ -22,19 +15,18 @@ import {Router} from "@angular/router";
   styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit {
-  private accountService = inject(AccountService);
-  private fb  = inject(FormBuilder);
-  private router = inject(Router);
   maxDate = new Date();
   validationErrors: string[] | undefined;
-
   // Use @Output to emit the cancelRegister event
   @Output() cancelRegister = new EventEmitter<boolean>();
   registerForm: FormGroup = new FormGroup({});
+  private accountService = inject(AccountService);
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
 
   ngOnInit(): void {
-   this.initializeForm();
-   this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
+    this.initializeForm();
+    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
   }
 
   initializeForm() {
@@ -49,38 +41,39 @@ export class RegisterComponent implements OnInit {
       confirmPassword: ['', [Validators.required, this.matchValues('password')]],
     });
     this.registerForm.controls['password'].valueChanges.subscribe({
-      next: _ => {this.registerForm.controls['confirmPassword'].updateValueAndValidity()}
-      });
+      next: _ => {
+        this.registerForm.controls['confirmPassword'].updateValueAndValidity()
+      }
+    });
   }
 
-  matchValues(matchTo:string): ValidatorFn {
-    return (control: AbstractControl) =>
-    {
-      return control.value === control.parent?.get(matchTo)?.value ? null: {isMatching: true}
+  matchValues(matchTo: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      return control.value === control.parent?.get(matchTo)?.value ? null : {isMatching: true}
     }
 
   }
 
 
-   register() {
+  register() {
     const dob = this.getDateOnly(this.registerForm.get('dateOfBirth')?.value);
     this.registerForm.patchValue({dateOfBirth: dob});
-     this.accountService.register(this.registerForm.value).subscribe({
-       next: _ => {
-         this.router.navigateByUrl('/members');
-       },
-       error: error =>{
-         this.validationErrors = error;
-       }
-     });
-   }
+    this.accountService.register(this.registerForm.value).subscribe({
+      next: _ => {
+        this.router.navigateByUrl('/members');
+      },
+      error: error => {
+        this.validationErrors = error;
+      }
+    });
+  }
 
   cancel() {
     this.cancelRegister.emit(false);
   }
 
   private getDateOnly(dob: string | undefined) {
-    if(!dob) return;
-    return new Date(dob).toISOString().slice(0,10);
+    if (!dob) return;
+    return new Date(dob).toISOString().slice(0, 10);
   }
 }
