@@ -10,6 +10,6 @@ export class UserParams {
 
   constructor(user: User | null)
   {
-    this.gender = ((user?.gender === 'female') ? 'male' : 'female');
+    this.gender = user?.gender === 'female' ? 'male' : 'female'
   }
 }
